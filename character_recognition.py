@@ -1,5 +1,11 @@
 #
-#
+# Example definition
+# 5 by 8 grid of pixels for each character, means 40-element input vector of filled pixels
+# and 26-element result vector indicating which of the 26 individual chars was detected.
+# The neural network by definition has to offer 40 inputs and 26 outputs. Its a two layer 
+# network with a layer of 10 neurons. Number of 10 was selected by some experience and a bit
+# trial and error.     
+# Font: Arial Bold Size 8
 #
 from numpy import exp, array, random, dot
 
@@ -20,10 +26,10 @@ def sig_d(x):
 random.seed(1)
 # How many training iterations do we perform?
 iterations = 10000
-# Layer 1 (4 neurons with 3 inputs) initial random input weights
-l1_input_weights = random.random((3,4))
+# Layer 1 (40 inputs with 10 neurons) initial random input weights
+l1_input_weights = random.random((40,10))
 # Layer 2 (1 neuron with 4 inputs) initial random input weights
-l2_input_weights = random.random((4,1))
+l2_input_weights = random.random((10, 3))
 
 
 def calcOutput(l1, l2, input):
@@ -33,9 +39,14 @@ def calcOutput(l1, l2, input):
 
 
 # Our training data sets
-t_in = array([[0, 0, 0], [0, 1, 0], [1, 0, 1], [0, 1, 1], [1, 0, 0], [1, 1, 1], [0, 0, 1]])
+t_in = array([[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],  # character A
+              [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],  # character B
+			  [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0]]) # character C
+			  
 # Our training data sets outputs
-t_out = array([[0, 1, 1, 1, 1, 0, 0]]).T
+t_out = array( [[1, 0, 0],
+				[0, 1, 0],
+				[0, 0, 1]]).T
 
 for i in range(iterations):
     # calculate the output
@@ -59,8 +70,8 @@ for i in range(iterations):
 
 # test run of our trained neural network with a new situation's input
 print("Output in a new situation")
-
-output_l1, output_l2 = calcOutput(l1_input_weights, l2_input_weights, array([1, 1, 0]))
+# classify a new input, that is a slightly modified character A
+output_l1, output_l2 = calcOutput(l1_input_weights, l2_input_weights, array([0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0]))
 
 print(output_l2)
 
