@@ -28,7 +28,7 @@ random.seed(1)
 iterations = 10000
 # Layer 1 (40 inputs with 10 neurons) initial random input weights
 l1_input_weights = random.random((40,10))
-# Layer 2 (1 neuron with 4 inputs) initial random input weights
+# Layer 2 (10 inputs with 3 outputs) initial random input weights
 l2_input_weights = random.random((10, 3))
 
 
