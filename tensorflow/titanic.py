@@ -14,14 +14,14 @@ def input_fn(data_file, num_epochs, shuffle):
 
 	data = pd.read_csv(tf.gfile.Open(data_file), names=CSV_COLUMNS, skipinitialspace=True, engine="python", skiprows=1)
 	# clear data set by removing missing values (NaN)
-	#data = data.dropna(how="any", axis=0)
+    #data = data.dropna(how="any", axis=0)
 	# clear data set by replacing missing values (NaN)
 	
-	data['Age'].fillna(28, inplace=True)
-	data['Pclass'].fillna(3, inplace=True)
+	data['Age'].fillna(data['Age'].median(), inplace=True)
+	data['Pclass'].fillna(data['Pclass'].median(), inplace=True)
 	data['Sex'].fillna('male', inplace=True)
-	data['SibSp'].fillna(0, inplace=True)
-	data['Fare'].fillna(14, inplace=True)
+	data['SibSp'].fillna(data['Age'].median(), inplace=True)
+	data['Fare'].fillna(data['Fare'].median(), inplace=True)
 	data['Embarked'].fillna('S', inplace=True)
 	survived = data['Survived']
 	del data['Name']
@@ -34,19 +34,17 @@ def input_fn_test(data_file, num_epochs, shuffle):
 	CSV_COLUMNS = [
 		"PassengerId","Pclass","Name","Sex","Age","SibSp","Parch","Ticket","Fare","Cabin","Embarked"
 	]
-
 	data = pd.read_csv(tf.gfile.Open(data_file), names=CSV_COLUMNS, skipinitialspace=True, engine="python", skiprows=1)
 	# clear data set by removing missing values (NaN)
-	data['Age'].fillna(20, inplace=True)
-	data['Pclass'].fillna(3, inplace=True)
+	data['Age'].fillna(data['Age'].median(), inplace=True)
+	data['Pclass'].fillna(data['Pclass'].median(), inplace=True)
 	data['Sex'].fillna('female', inplace=True)
-	data['SibSp'].fillna(0, inplace=True)
-	data['Fare'].fillna(4, inplace=True)
+	data['SibSp'].fillna(data['Age'].median(), inplace=True)
+	data['Fare'].fillna(data['Fare'].median(), inplace=True)
 	data['Embarked'].fillna('S', inplace=True)
 	del data['Name']
 	del data['Ticket']
 	del data['Cabin']
-	#data = data.dropna(how="any", axis=0)
 	return tf.estimator.inputs.pandas_input_fn(x=data, batch_size=100, num_epochs=num_epochs, shuffle=shuffle, num_threads=1), data
 	
 # prepare the model features
@@ -83,7 +81,7 @@ estimator = tf.contrib.learn.DNNClassifier(
         hidden_units=[100, 50])
 	
 # set num_epochs to None to get infinite stream of data.
-estimator.fit(input_fn=input_fn('train.csv', num_epochs=None, shuffle=False), steps=1000)
+estimator.fit(input_fn=input_fn('train.csv', num_epochs=None, shuffle=False), steps=10000)
 
 # load data file to predict
 input_pred, data = input_fn_test('test.csv', num_epochs=1, shuffle=False);
@@ -93,7 +91,7 @@ predictions = estimator.predict(input_fn=input_pred)
 f = open('predictions.csv', 'w')
 f.write('PassengerId,Survived\n')
 for i, p in enumerate(predictions):
-	#print("Prediction %s: %s" % (data['PassengerId'][i], p))	
+	print("Prediction %s: %s" % (data['PassengerId'][i], p))	
 	f.write('%s,%s\n' % (data['PassengerId'][i], p))
 	
 

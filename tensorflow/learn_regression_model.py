@@ -11,17 +11,17 @@ y_train = np.array([-3,-5,-7,-9])
 x_eval = np.array([5, 6, 7, 8])
 y_eval = np.array([-11, -13, -15, -17])
 # prepare the training input
-input_fn = tf.contrib.learn.io.numpy_input_fn({"x":x_train}, y_train, batch_size=4, num_epochs=1000)
+input_fn = tf.contrib.learn.io.numpy_input_fn({"x":x_train}, y_train, num_epochs=100000)
 # prepare the evaluation input											  
-eval_input_fn = tf.contrib.learn.io.numpy_input_fn({"x":x_eval}, y_eval, batch_size=4, num_epochs=1000)
+eval_input_fn = tf.contrib.learn.io.numpy_input_fn({"x":x_eval}, y_eval, num_epochs=1)
 # train the model with our training input
-estimator.fit(input_fn=input_fn, steps=1000)
+estimator.fit(input_fn=input_fn, steps=100000)
 # evaluate the loss with our evaluation input
 results = estimator.evaluate(input_fn=eval_input_fn)
 for key in sorted(results):
   print("%s: %s" % (key, results[key]))
 # predict a new value by using the trained model
-x_predict = np.array([5, 6, 7, 8])
+x_predict = np.array([9, 10, 11, 12])
 predict_input_fn = tf.estimator.inputs.numpy_input_fn(x={"x": x_predict}, num_epochs=1, shuffle=False)
 predictions = estimator.predict(input_fn=predict_input_fn)
 for i, p in enumerate(predictions):
