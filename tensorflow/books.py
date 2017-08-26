@@ -2,8 +2,23 @@
 # rating from 1 to 5
 import numpy
 import tensorflow as tf
+import pandas as pd
 	
-R_BOOKS = [ # columns = user, rows = books
+'''
+BOOKS = numpy.zeros(shape=(10000,53424), dtype=float)	
+
+CSV_COLUMNS = [
+		"book_id","user_id","rating"
+	]
+
+data = pd.read_csv(tf.gfile.Open("ratings.csv"), names=CSV_COLUMNS, skipinitialspace=True, engine="python", skiprows=1)
+print("Book ratings read")
+for index, row in data.iterrows():
+	BOOKS[int(row['book_id'])-1][int(row['user_id'])-1] = int(row['rating']);
+print("Book ratings array created")	
+'''
+
+BOOKS = [ # columns = user, rows = books
      [4,0,0,0,2,0],
      [0,0,0,3,5,0],
      [0,1,0,5,4,0],
@@ -12,9 +27,9 @@ R_BOOKS = [ # columns = user, rows = books
     ]
 	
 # prepare data
-R = numpy.array(R_BOOKS)
-N = len(R_BOOKS)
-M = len(R_BOOKS[0])
+R = numpy.array(BOOKS)
+N = len(BOOKS)
+M = len(BOOKS[0])
 K = 2 # number of hidden features
 P = numpy.random.rand(N,K)
 Q = numpy.random.rand(M,K)
@@ -36,7 +51,7 @@ tf.summary.scalar('sumP', tf.reduce_sum(tP))
 tf.summary.scalar('sumQ', tf.reduce_sum(tQ))
    
 # create an optimizer towards minimizing the loss value
-optimizer = tf.train.GradientDescentOptimizer(0.001)
+optimizer = tf.train.GradientDescentOptimizer(0.01)
 train = optimizer.minimize(loss)
 	
 sess = tf.Session();
@@ -48,10 +63,11 @@ summary_op = tf.summary.merge_all()
 file_writer = tf.summary.FileWriter('./logs', sess.graph)
 	
 # now run the training loop to reduce the loss
-for i in range(5000):
+for i in range(100):
     # also execute a summary operation together with the train node for TensorBoard
-    _, summary = sess.run([train, summary_op], {ratings: R_BOOKS})
+    _, summary = sess.run([train, summary_op], {ratings: BOOKS})
     file_writer.add_summary(summary, i)
+    print(i)
   
 print(sess.run(pDotq))
 
