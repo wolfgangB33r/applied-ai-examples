@@ -1,9 +1,9 @@
 # Kindle eBook: Applied Artificial Intelligence
 ## Neural networks and deep learning with Python and TensorFlow
 
-[Amazon](http://www.smartlab.at/books/applied-artificial-intelligence/)
+[Amazon](https://www.amazon.com/Applied-Artificial-Intelligence-introduction-networks-ebook/dp/B01MS4B3AV)
 
-![Kindle eBook: Applied Artificial Intelligence](https://github.com/wolfgangB33r/applied-ai-examples/cover.jpg "")
+![Kindle eBook: Applied Artificial Intelligence](https://images-na.ssl-images-amazon.com/images/I/41yQkrmYb6L.jpg "")
 What are the secrets of modern Artificial Intelligence? 
 How does AI beat humans in various domains, such as playing Go or predicting the future?  
 How can I implement my own Artificial Intelligence and push it into production with Google TensorFlow?
@@ -14,7 +14,7 @@ Examples cover the design of simple neural networks for solving math functions o
 The second part of the book shows how to build machine learning models in Google TensorFlow and how to bring your Artificial Intelligence into production.
 TensorFlow is one of the most advanced open source machine learning frameworks available today. TensorFlow easily enables data scientists to push their Artificial Intelligence into a scalable production environment. 
 The third part of the book is dedicated to practical and fun machine learning examples, such as to calculate book recommendations or to predict the chance of survival for passengers of RMS Titanic.
-
+<pre>
 Outline
 Introduction
 Artificial intelligence
@@ -36,6 +36,7 @@ Summary
 References
 Contact and download links
 Credits
+</pre>
 
 
 
