@@ -2,8 +2,7 @@
 ## Neural networks and deep learning with Python and TensorFlow
 
 [Amazon](https://www.amazon.com/Applied-Artificial-Intelligence-introduction-networks-ebook/dp/B01MS4B3AV)
-
-![Kindle eBook: Applied Artificial Intelligence](https://images-na.ssl-images-amazon.com/images/I/41yQkrmYb6L.jpg "")
+<img style="float: right;" src="https://images-na.ssl-images-amazon.com/images/I/41yQkrmYb6L.jpg">
 What are the secrets of modern Artificial Intelligence? 
 How does AI beat humans in various domains, such as playing Go or predicting the future?  
 How can I implement my own Artificial Intelligence and push it into production with Google TensorFlow?
