@@ -7,9 +7,7 @@ import tensorflow_recommenders as tfrs
 
 # Books are 1-8, for users, 1-6
 # Rating from 1 to 5
-ratings = pd.read_csv("ratings.csv")	
-
-rtg = pd.read_csv("https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv")
+ratings = pd.read_csv("https://raw.githubusercontent.com/wolfgangB33r/applied-ai-examples/master/tensorflow2/ratings.csv")	
 
 MATRIX = np.zeros(shape=(len(ratings['book_id'].unique()),len(ratings['user_id'].unique())))
 
