@@ -11,7 +11,7 @@ CSV_COLUMNS = [
 		"book_id","user_id","rating"
 	]
 
-data = pd.read_csv(tf.gfile.Open("ratings.csv"), names=CSV_COLUMNS, skipinitialspace=True, engine="python", skiprows=1)
+data = pd.read_csv("ratings.csv", names=CSV_COLUMNS, skipinitialspace=True, engine="python", skiprows=1)
 print("Book ratings read")
 for index, row in data.iterrows():
 	BOOKS[int(row['book_id'])-1][int(row['user_id'])-1] = int(row['rating']);
