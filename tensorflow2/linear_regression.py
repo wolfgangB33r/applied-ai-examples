@@ -2,6 +2,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 
 writer = tf.summary.create_file_writer('./logs')
+tf.summary.trace_on(graph=True, profiler=True)
 
 class LinearRegressionModel:
     def __init__(self):
@@ -25,6 +26,7 @@ def train(model, X, y, lr=0.05):
     model.d.assign_sub(lr * dd)
 
 model = LinearRegressionModel()
+print(model(1))
 
 # Let's generate some example data
 true_k = 1.3 # slope
@@ -42,22 +44,15 @@ plt.scatter(X, model(X), label="predicted")
 plt.legend()
 plt.show()
 
-
-# Tracing starts with calling tf.summary.trace_on() 
-# and ends with a call to tf.summary.trace_export().
-
 # Training the model
 epochs = 50
 for epoch in range(epochs):
-    current_loss = loss(y, model(X))
     with writer.as_default(step=epoch):
+        current_loss = loss(y, model(X))
         tf.summary.scalar('loss', current_loss)   
-        tf.summary.trace_on(graph=True, profiler=True)
-    train(model, X, y, lr=0.1)
-    print(f"Epoch {epoch}: Loss: {current_loss.numpy()}")
-    with writer.as_default(step=epoch):
-        tf.summary.trace_export(name="sample_func_trace", step=epoch, profiler_outdir="./logs")
-
+        train(model, X, y, lr=0.1)
+        print(f"Epoch {epoch}: Loss: {current_loss.numpy()}")
+    
 # Plot after training the model
 plt.scatter(X, y, label="true")
 plt.scatter(X, model(X), label="predicted")

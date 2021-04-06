@@ -5,6 +5,9 @@ import pandas as pd
 import tensorflow as tf
 import tensorflow_recommenders as tfrs
 
+# Create a tracing writer for TensorBoard
+writer = tf.summary.create_file_writer('./logs')
+
 # Books are 1-8, for users, 1-6
 # Rating from 1 to 5
 ratings = pd.read_csv("https://raw.githubusercontent.com/wolfgangB33r/applied-ai-examples/master/tensorflow2/ratings.csv")	
@@ -25,9 +28,6 @@ M = len(MATRIX[0])
 K = 2 # number of hidden features
 P = np.random.rand(N,K)
 Q = np.random.rand(M,K)
-
-# Create a tracing writer for TensorBoard
-writer = tf.summary.create_file_writer('./logs')
 
 class MatrixFactorizationModel:
     def __init__(self):
@@ -52,14 +52,15 @@ def train(model, ratings, lr=0.05):
     model.Q.assign_sub(lr * dQ)
 
 model = MatrixFactorizationModel()
-# Start the TensorBoard tracing
-tf.summary.trace_on(graph=True, profiler=True)
+print(model())
+
 # Train the model
 epochs = 50
 for epoch in range(epochs):
     current_loss = loss(RATINGS, model())
     with writer.as_default(step=epoch):
         tf.summary.scalar('loss', current_loss)   
+        tf.summary.trace_on(graph=True, profiler=True)
     train(model, RATINGS, lr=0.05)
     print(f"Epoch {epoch}: Loss: {current_loss.numpy()}")
 

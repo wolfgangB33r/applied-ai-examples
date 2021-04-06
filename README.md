@@ -1,7 +1,7 @@
 # Kindle eBook: Applied Artificial Intelligence
 ## Neural networks and deep learning with Python and TensorFlow
 
-<a href='https://www.amazon.com/Applied-Artificial-Intelligence-introduction-networks-ebook/dp/B01MS4B3AV'><img align='left' style="float: left;" src="https://images-na.ssl-images-amazon.com/images/I/41yQkrmYb6L.jpg"></a>
+<a href='https://www.amazon.com/Applied-Artificial-Intelligence-introduction-networks-ebook/dp/'><img align='left' style="float: left;" width="300px" src="./cover.jpg"></a>
 What are the secrets of modern Artificial Intelligence? 
 How does AI beat humans in various domains, such as playing Go or predicting the future?  
 How can I implement my own Artificial Intelligence and push it into production with Google TensorFlow?
